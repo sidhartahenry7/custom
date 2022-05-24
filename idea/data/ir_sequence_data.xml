@@ -1,0 +1,25 @@
+<odoo noupdate="1">
+    <!-- Sequences for idea.idea -->
+    <record id="sequence_idea_idea_seq" model="ir.sequence">
+        <field name="name">Idea sequence</field>
+        <field name="code">idea.idea</field>
+        <field name="prefix">IDEA/%(range_year)s/</field>
+        <field eval="3" name="padding"/>
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <field eval="False" name="company_id"/>
+        <field eval="True" name="use_date_range"/>
+    </record>
+    <!-- Sequences for idea.voting -->
+    <record id="sequence_idea_voting_seq" model="ir.sequence">
+        <field name="name">Idea voting</field>
+        <field name="code">idea.voting</field>
+        <field name="prefix">VOTE/%(range_year)s/</field>
+<!--        <field name="prefix">VOTE</field>-->
+        <field eval="3" name="padding"/>
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <field eval="False" name="company_id"/>
+        <field eval="True" name="use_date_range"/>
+    </record>
+</odoo>

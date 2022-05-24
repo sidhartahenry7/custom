@@ -1,0 +1,144 @@
+<odoo>
+    <record id="peminjaman_view_form" model="ir.ui.view">
+        <field name="name">peminjaman.view.form</field>
+        <field name="model">perpus.peminjaman</field>
+        <field name="arch" type="xml">
+            <form string="Peminjaman form">
+                <header>
+                    <button name="action_confirmed" string="Confirm" states="draft" type="object" class="btn-primary"/>
+                    <button name="action_canceled" string="Cancel" states="confirmed" type="object" class="btn-primary"/>
+                    <button name="action_settodraft" states="canceled" string="Set to Draft" type="object"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="anggota_id"/>
+                            <field name="admin_id"/>
+                        </group>
+                        <group>
+                            <field name="jumlah"/>
+                            <field name="total"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Detail Peminjaman" name="detail_peminjaman">
+                            <field name="detail_peminjaman_ids">
+                                <!-- <tree editable="bottom" decoration-info="vote == 'abstain'" decoration-warning="vote == 'yes'"-->
+                                <tree editable="bottom">
+                                    <field name="buku_id"/>
+                                    <field name="date_pinjam"/>
+                                    <field name="date"/>
+                                    <field name="harga"/>
+                                    <field name="count_days"/>
+                                    <field name="biaya_pinjam"/>
+                                    <field name="count_days_telat"/>
+                                    <field name="biaya_telat"/>
+                                    <field name="status_cacat"/>
+                                    <field name="biaya_denda"/>
+                                    <field name="sub_total"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="perpus_view_kanban" model="ir.ui.view">
+        <field name="name">perpus.view.kanban</field>
+        <field name="model">perpus.peminjaman</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="anggota_id"/>
+                <field name="date"/>
+                <field name="jumlah"/>
+                <field name="total"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading">
+                                    <field name="name"/>
+                                </strong>
+                                <ul>
+                                    <li t-if="record.anggota_id.raw_value">
+                                        <field name="anggota_id"/>
+                                    </li>
+                                    <li t-if="record.date.raw_value">
+                                        <field name="date"/>
+                                    </li>
+                                    <li t-if="record.jumlah.raw_value">
+                                        <field name="jumlah"/>
+                                    </li>
+                                    <li t-if="record.total.raw_value">
+                                        <field name="total"/>
+                                    </li>
+                                    <li t-if="record.state.raw_value">
+                                        <field name="state"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="peminjaman_view_list" model="ir.ui.view">
+        <field name="name">peminjaman.view.list</field>
+        <field name="model">perpus.peminjaman</field>
+        <field name="arch" type="xml">
+            <tree string="peminjaman list">
+                <field name="name"/>
+                <field name="anggota_id"/>
+                <field name="date"/>
+                <field name="jumlah"/>
+                <field name="total"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="peminjaman_view_search" model="ir.ui.view">
+        <field name="name">perpus.peminjaman.search</field>
+        <field name="model">perpus.peminjaman</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="jumlah"/>
+                <field name="total"/>
+                <filter string="Draft" name="draft_filter" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmed" name="confirmed_filter" domain="[('state', '=', 'confirmed')]"/>
+
+                <group string="Group By..." expand="0" name="groupby"> <!-- Expand = 0 artinya ga drop down otomatis-->
+                    <filter string="State" name="by_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="peminjaman_action" model="ir.actions.act_window">
+        <field name="name">Peminjaman</field>
+        <field name="res_model">perpus.peminjaman</field>
+        <field name="view_id" ref="peminjaman_view_list"/>
+        <field name="view_mode">list,kanban,form</field>
+    </record>
+
+    <menuitem id="perpus_menu" parent="idea.exercise_menu" name="Perpus"
+              sequence="30"/>
+
+    <menuitem id="peminjaman_menu" parent="perpus.perpus_menu" name="Peminjaman"
+              action="peminjaman_action" sequence="40"/>
+
+</odoo>

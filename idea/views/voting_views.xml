@@ -1,0 +1,81 @@
+<odoo>
+    <record id="voting_view_form" model="ir.ui.view">
+        <field name="name">voting.view.form</field>
+        <field name="model">idea.voting</field>
+        <field name="arch" type="xml">
+            <form string="Voting form">
+                <header>
+                    <button name="action_voted" string="Vote" states="draft" type="object" class="btn-primary"/>
+                    <button name="action_canceled" string="Cancel" states="voted" type="object" class="btn-primary"/>
+                    <!--                    groups="sales_team.group_sale_manager"-->
+                    <button name="action_settodraft" states="canceled" string="Set to Draft" type="object"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="idea_id"/>
+                            <field name="idea_date"/>
+                        </group>
+                        <group>
+                            <field name="vote" widget="radio"/>
+                            <field name="voter_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="voting_view_list" model="ir.ui.view">
+        <field name="name">voting.view.list</field>
+        <field name="model">idea.voting</field>
+        <field name="arch" type="xml">
+            <tree string="Voting list">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="vote"/>
+                <field name="voter_id"/>
+                <field name="idea_id"/>
+                <field name="idea_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="voting_view_search" model="ir.ui.view">
+        <field name="name">idea.voting.search</field>
+        <field name="model">idea.voting</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="vote"/>
+                <filter string="Draft" name="draft_filter" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmed" name="confirmed_filter" domain="[('state', '=', 'voted')]"/>
+                <separator/>
+                <filter string="Voted Agree" name="voteyes_filter" domain="[('vote', '=', 'Yes')]"/>
+                <filter string="Voted Disagree" name="voteno_filter" domain="[('vote', '=', 'No')]"/>
+
+                <group string="Group By..." expand="0" name="groupby"> <!-- Expand = 0 artinya ga drop down otomatis-->
+                    <filter string="State" name="by_state" context="{'group_by': 'state'}"/>
+                    <filter string="Date" name="by_date" context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="voting_action" model="ir.actions.act_window">
+        <field name="name">Voting</field>
+        <field name="res_model">idea.voting</field>
+        <field name="view_id" ref="voting_view_list"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="voting_mmenu2" parent="idea.idea_mmenu" name="Voting"
+              action="voting_action" sequence="20"/>
+
+</odoo>

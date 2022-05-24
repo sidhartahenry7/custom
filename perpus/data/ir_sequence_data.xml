@@ -1,0 +1,12 @@
+<odoo noupdate="1">
+    <!-- Sequences for perpus.buku -->
+    <record id="sequence_perpus_buku_seq" model="ir.sequence">
+        <field name="name">Buku sequence</field>
+        <field name="code">perpus.buku</field>
+        <field name="prefix">B</field>
+        <field eval="3" name="padding"/>
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <field eval="False" name="company_id"/>
+    </record>
+</odoo>
