@@ -103,9 +103,6 @@
         <field name="view_mode">tree,kanban,list,form</field>
     </record>
 
-    <menuitem id="tokobaju_menu" parent="idea.exercise_menu" name="Toko Baju"
-              sequence="30"/>
-
     <menuitem id="kategori_menu" parent="tokobaju.tokobaju_menu" name="Kategori"
               action="kategori_action" sequence="20"/>
 
