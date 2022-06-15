@@ -134,7 +134,7 @@
 
     <menuitem id="tokobaju_menu" parent="idea.exercise_menu" name="Toko Baju"
               sequence="30"/>
-    
+
     <menuitem id="produk_menu" parent="tokobaju.tokobaju_menu" name="Produk"
               action="produk_action" sequence="10"/>
 

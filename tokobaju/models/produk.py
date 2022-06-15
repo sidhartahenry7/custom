@@ -54,10 +54,11 @@ class _produk(models.Model):
             val['id_produk'] = seq.next_by_id()
         return super(_produk, self).create(vals_list)
 
-    @api.depends('quantity', 'detail_transaksi_ids', 'detail_transaksi_ids.quantity')
+    @api.depends('quantity', 'detail_transaksi_ids', 'detail_transaksi_ids.quantity', 'detail_transaksi_ids.transaksi_state')
     def _compute_quantity(self):
         for _produk in self.filtered(lambda i: i.state == 'confirmed'):
             val = {'sisa_quantity': _produk.quantity}
-            for rec in _produk.detail_transaksi_ids.filtered(lambda s: s.state == 'confirmed'):
-                val['sisa_quantity'] -= rec.quantity
+            for rec in _produk.detail_transaksi_ids:
+                if rec.transaksi_state == "confirmed":
+                    val['sisa_quantity'] -= rec.quantity
             _produk.update(val)

@@ -12,6 +12,8 @@ class _detail_transaksi(models.Model):
                                     states={'draft': [('readonly', False)]},
                                     domain="[('state', '=', 'confirmed')]")
 
+    transaksi_state = fields.Selection("State Transaksi", related='transaksi_id.state')
+
     produk_id = fields.Many2one('tokobaju.produk', string='Nama Produk', readonly=True, ondelete='cascade',
                                 states={'draft': [('readonly', False)]},
                                 domain="[('state', '=', 'confirmed')]")
