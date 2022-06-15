@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="res_partner_view_form_tokobaju" model="ir.ui.view">
+        <field name="name">res.partner.view.form.tokobaju</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="poin"/>
+            </field>
+            <field name="parent_id" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="vat" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="function" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="website" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="phone" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

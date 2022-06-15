@@ -1,0 +1,138 @@
+<odoo>
+    <record id="produk_view_form" model="ir.ui.view">
+        <field name="name">produk.view.form</field>
+        <field name="model">tokobaju.produk</field>
+        <field name="arch" type="xml">
+            <form string="Produk form">
+                <header>
+                    <button name="action_confirmed" string="Confirm" states="draft" type="object" class="btn-primary"/>
+                    <button name="action_canceled" string="Cancel" states="confirmed" type="object"
+                            class="btn-primary"/>
+                    <button name="action_settodraft" states="canceled" string="Set to Draft" type="object"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="id_produk"/>
+                            <field name="name"/>
+                            <field name="brand_id"/>
+                            <field name="kategori_id"/>
+                            <field name="warna"/>
+                            <field name="ukuran"/>
+                        </group>
+                        <group>
+                            <field name="quantity"/>
+                            <field name="sisa_quantity"/>
+                            <field name="harga"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tokobaju_view_kanban" model="ir.ui.view">
+        <field name="name">produk.view.kanban</field>
+        <field name="model">tokobaju.produk</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id_produk"/>
+                <field name="name"/>
+                <field name="brand_id"/>
+                <field name="warna"/>
+                <field name="ukuran"/>
+                <field name="quantity"/>
+                <field name="harga"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading">
+                                    <field name="name"/>
+                                </strong>
+                                <ul>
+                                    <li t-if="record.id_produk.raw_value">
+                                        <field name="id_produk"/>
+                                    </li>
+                                    <li t-if="record.brand_id.raw_value">
+                                        <field name="brand_id"/>
+                                    </li>
+                                    <li t-if="record.warna.raw_value">
+                                        <field name="warna"/>
+                                    </li>
+                                    <li t-if="record.ukuran.raw_value">
+                                        <field name="ukuran"/>
+                                    </li>
+                                    <li t-if="record.quantity.raw_value">
+                                        <field name="quantity"/>
+                                    </li>
+                                    <li t-if="record.harga.raw_value">
+                                        <field name="harga"/>
+                                    </li>
+                                    <li t-if="record.state.raw_value">
+                                        <field name="state"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="produk_view_list" model="ir.ui.view">
+        <field name="name">produk.view.list</field>
+        <field name="model">tokobaju.produk</field>
+        <field name="arch" type="xml">
+            <tree string="produk list">
+                <field name="id_produk"/>
+                <field name="name"/>
+                <field name="brand_id"/>
+                <field name="warna"/>
+                <field name="ukuran"/>
+                <field name="quantity"/>
+                <field name="harga"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="produk_view_search" model="ir.ui.view">
+        <field name="name">tokobaju.produk.search</field>
+        <field name="model">tokobaju.produk</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="id_produk"/>
+                <field name="name"/>
+                <field name="brand_id"/>
+                <field name="warna"/>
+                <field name="ukuran"/>
+                <field name="quantity"/>
+                <field name="harga"/>
+                <field name="state"/>
+                <filter string="Draft" name="draft_filter" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmed" name="confirmed_filter" domain="[('state', '=', 'confirmed')]"/>
+
+                <group string="Group By..." expand="0" name="groupby"> <!-- Expand = 0 artinya ga drop down otomatis-->
+                    <filter string="State" name="by_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="produk_action" model="ir.actions.act_window">
+        <field name="name">Produk</field>
+        <field name="res_model">tokobaju.produk</field>
+        <field name="view_id" ref="produk_view_list"/>
+        <field name="view_mode">tree,kanban,list,form</field>
+    </record>
+
+    <menuitem id="produk_menu" parent="tokobaju.tokobaju_menu" name="Produk"
+              action="produk_action" sequence="10"/>
+
+</odoo>

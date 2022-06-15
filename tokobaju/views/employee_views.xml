@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="hr_employee_view_form_tokobaju" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.tokobaju_employee</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="coach_id" position="after">
+                <field name="tanggal_masuk"/>
+            </field>
+            <field name="tanggal_masuk" position="after">
+                <field name="tanggal_keluar"/>
+            </field>
+            <field name="coach_id" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="work_phone" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

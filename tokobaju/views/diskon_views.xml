@@ -1,0 +1,105 @@
+<odoo>
+    <record id="diskon_view_form" model="ir.ui.view">
+        <field name="name">diskon.view.form</field>
+        <field name="model">tokobaju.diskon</field>
+        <field name="arch" type="xml">
+            <form string="diskon form">
+                <header>
+                    <button name="action_confirmed" string="Confirm" states="draft" type="object" class="btn-primary"/>
+                    <button name="action_canceled" string="Cancel" states="confirmed" type="object"
+                            class="btn-primary"/>
+                    <button name="action_settodraft" states="canceled" string="Set to Draft" type="object"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="id_diskon"/>
+                        <field name="name"/>
+                        <field name="tanggal_mulai"/>
+                        <field name="tanggal_berakhir"/>
+                        <field name="jumlah_diskon"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tokobaju_view_kanban" model="ir.ui.view">
+        <field name="name">diskon.view.kanban</field>
+        <field name="model">tokobaju.diskon</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id_diskon"/>
+                <field name="name"/>
+                <field name="jumlah_diskon"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading">
+                                    <field name="name"/>
+                                </strong>
+                                <ul>
+                                    <li t-if="record.id_diskon.raw_value">
+                                        <field name="id_diskon"/>
+                                    </li>
+                                    <li t-if="record.jumlah_diskon.raw_value">
+                                        <field name="jumlah_diskon"/>
+                                    </li>
+                                    <li t-if="record.state.raw_value">
+                                        <field name="state"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="diskon_view_list" model="ir.ui.view">
+        <field name="name">diskon.view.list</field>
+        <field name="model">tokobaju.diskon</field>
+        <field name="arch" type="xml">
+            <tree string="diskon list">
+                <field name="id_diskon"/>
+                <field name="name"/>
+                <field name="jumlah_diskon"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="diskon_view_search" model="ir.ui.view">
+        <field name="name">tokobaju.diskon.search</field>
+        <field name="model">tokobaju.diskon</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="id_diskon"/>
+                <field name="name"/>
+                <field name="state"/>
+                <filter string="Draft" name="draft_filter" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmed" name="confirmed_filter" domain="[('state', '=', 'confirmed')]"/>
+
+                <group string="Group By..." expand="0" name="groupby"> <!-- Expand = 0 artinya ga drop down otomatis-->
+                    <filter string="State" name="by_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="diskon_action" model="ir.actions.act_window">
+        <field name="name">Diskon</field>
+        <field name="res_model">tokobaju.diskon</field>
+        <field name="view_id" ref="diskon_view_list"/>
+        <field name="view_mode">tree,kanban,list,form</field>
+    </record>
+
+    <menuitem id="diskon_menu" parent="tokobaju.tokobaju_menu" name="Diskon"
+              action="diskon_action" sequence="40"/>
+
+</odoo>

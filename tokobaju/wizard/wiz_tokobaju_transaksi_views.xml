@@ -1,0 +1,37 @@
+<odoo>
+    <record id="wiz_transaksi_view_form" model="ir.ui.view">
+        <field name="name">wiz.transaksi.view.form</field>
+        <field name="model">wiz.tokobaju.transaksi</field>
+        <field name="arch" type="xml">
+            <form string="Transaksi Form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="transaksi_id"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Detail Transaksi" name="tokobaju_detailtransaksi">
+                            <field name="detail_transaksi_ids">
+                                <tree create="0" delete="0" editable="bottom">
+                                    <field name="produk_id" readonly="1"/>
+                                    <field name="ref_detail_transaksi_id" invisible="1"/>
+                                    <field name="ukuran"/>
+                                    <field name="harga"/>
+                                    <field name="quantity"/>
+                                    <field name="diskon_id"/>
+                                    <field name="diskon2"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                 <footer>
+                        <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" data-hotkey="c"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                 </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

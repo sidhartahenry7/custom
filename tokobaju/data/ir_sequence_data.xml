@@ -1,0 +1,54 @@
+<odoo noupdate="1">
+    <!-- Sequences for tokobaju.produk -->
+    <record id="sequence_tokobaju_produk_seq" model="ir.sequence">
+        <field name="name">Produk sequence</field>
+        <field name="code">tokobaju.produk</field>
+        <field name="prefix">PR</field>
+        <field eval="3" name="padding"/>
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <field eval="False" name="company_id"/>
+    </record>
+    <!-- Sequences for tokobaju.kategori -->
+    <record id="sequence_tokobaju_kategori_seq" model="ir.sequence">
+        <field name="name">Kategori sequence</field>
+        <field name="code">tokobaju.kategori</field>
+        <field name="prefix">CG</field>
+        <field eval="3" name="padding"/>
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <field eval="False" name="company_id"/>
+    </record>
+    <!-- Sequences for tokobaju.brand -->
+    <record id="sequence_tokobaju_brand_seq" model="ir.sequence">
+        <field name="name">Brand sequence</field>
+        <field name="code">tokobaju.brand</field>
+        <field name="prefix">BR</field>
+        <field eval="3" name="padding"/>
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <field eval="False" name="company_id"/>
+    </record>
+    <!-- Sequences for tokobaju.diskon -->
+    <record id="sequence_tokobaju_diskon_seq" model="ir.sequence">
+        <field name="name">Diskon sequence</field>
+        <field name="code">tokobaju.diskon</field>
+        <field name="prefix">DC</field>
+        <field eval="3" name="padding"/>
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <field eval="False" name="company_id"/>
+        <field eval="True" name="use_date_range"/>
+    </record>
+    <!-- Sequences for tokobaju.transaksi -->
+    <record id="sequence_tokobaju_transaksi_seq" model="ir.sequence">
+        <field name="name">Transaksi sequence</field>
+        <field name="code">tokobaju.transaksi</field>
+        <field name="prefix">TR</field>
+        <field eval="3" name="padding"/>
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <field eval="False" name="company_id"/>
+        <field eval="True" name="use_date_range"/>
+    </record>
+</odoo>
